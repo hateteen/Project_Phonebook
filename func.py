@@ -1,19 +1,9 @@
-import interface, func
-
+import interface
 def add_contact(contact):
-    # contact = [input('Input name: ')+" ", input('Input surname: ')+" ", input('Input phone number: ')]
     data = open('directory.txt', 'a')
     data.writelines(contact)
     data.write('\n')
     data.close()
-
-# def find_contact():
-#     contact_list = open('directory.txt', 'r')
-#     search = input('Input surname: ')
-#     for i in contact_list:
-#         if search in i:
-#             print(i)
-#     contact_list.close()
 
 def print_all():
     contact_list = open('directory.txt', 'r')
@@ -23,44 +13,55 @@ def print_all():
             num +=1
     contact_list.close()
 
-def find_contact_n():
-    contact_list = open('directory.txt', 'r')
-    search = input('Input name: ')
-    for i in contact_list:
-        if search in i:
-            print(i)
-    contact_list.close()
-
-def find_contact_s():
-    contact_list = open('directory.txt', 'r')
-    search = input('Input surname: ')
-    for i in contact_list:
-        if search in i:
-            print(i)
-    contact_list.close()
-
-def find_contact_num():
-    contact_list = open('directory.txt', 'r')
-    search = input('Input surname: ')
-    for i in contact_list:
-        if search in i:
-            print(i)
-    contact_list.close()  
-
 def find_contact():
     contact_list = open('directory.txt', 'r')
-    flag = True
-    while flag:
-        if a == '1':
-            func.find_contact_n(interface.get_contact())
-            
-        elif a == '2':
-            func.find_contact_s()
-            
-        elif a == '3':
-            func.find_contact_num()
-            
-        else:
-            flag = False
+    b = interface.find_c()
+    flag2 = True
+    while flag2:
+        if b == '1':
+            search = input('Input name: ')
+            for i in contact_list:
+                if search in i:
+                    print(i)
+            flag2 = False
+        elif b == '2':
+            search = input('Input surname: ')
+            for i in contact_list:
+                if search in i:
+                    print(i)
+            flag2 = False  
+        elif b == '3':
+            search = input('Input phone number: ')
+            for i in contact_list:
+                if search in i:
+                    print(i)
+            flag2 = False
 
+def change_contact():
+    contact_list = open('directory.txt','r')
+    change_list = []
+    changed_name = input ('Input surname to change: ')
+    fill_to_change = input('Input parameter ("Name", "Surname" or "Phone number"): ')
+    new_value = input(f"Input new data {fill_to_change} ")
+
+    for i in contact_list:
+        if changed_name in i:
+            fields = i.split()
+            if fill_to_change == 'Name':
+                fields[0] = new_value
+            elif fill_to_change == 'Surname':
+                fields[1] = new_value
+            elif fill_to_change == 'Phone number':
+                fields[2] = new_value
+            changed_line = ' '.join(fields) + '\n'
+            change_list.append(changed_line)
+        else:
+            change_list.append(i)
     contact_list.close()
+    
+
+    contact_list = open('directory.txt','w')
+    for i in change_list:
+        contact_list.writelines(i)
+    contact_list.close()
+
